@@ -61,6 +61,13 @@ async function run() {
     })
 
 
+    app.get('/users/:email', async (req, res) => {
+        const email = req.params.email
+        const result = await usersCollection.findOne({ email })
+        res.send(result)
+      })
+
+
 
 
     // Send a ping to confirm a successful connection
