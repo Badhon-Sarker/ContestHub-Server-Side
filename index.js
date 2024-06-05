@@ -78,6 +78,15 @@ async function run() {
         
     })
 
+    app.get('/contest/:email', async (req, res) => {
+        const email = req.params.email
+        const query = {
+            contestCreator: email
+        }
+        const result = await contestCollection.find(query).toArray()
+      res.send(result)
+      })
+
 
 
 
