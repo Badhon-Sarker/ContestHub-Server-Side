@@ -39,6 +39,7 @@ async function run() {
     // await client.connect();
 
     const usersCollection = client.db("contestHub").collection('users')
+    const contestCollection = client.db("contestHub").collection('contest')
 
 
     app.post('/users', async(req, res)=>{
@@ -55,6 +56,7 @@ async function run() {
     })
 
 
+
     app.get('/users', async(req, res)=>{
         const result = await usersCollection.find().toArray()
         res.send(result)
@@ -66,6 +68,15 @@ async function run() {
         const result = await usersCollection.findOne({ email })
         res.send(result)
       })
+
+
+
+      app.post('/contest', async(req, res)=>{
+        const data = req.body
+        const result = await contestCollection.insertOne(data)
+        res.send(result)
+        
+    })
 
 
 
