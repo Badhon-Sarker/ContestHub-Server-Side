@@ -88,6 +88,14 @@ async function run() {
       })
 
 
+    app.get('/contest', async(req, res)=>{
+
+        const result = await contestCollection.find().toArray()
+        res.send(result)
+
+    })
+
+
 
 
     // Send a ping to confirm a successful connection
