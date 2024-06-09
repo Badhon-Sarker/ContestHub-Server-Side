@@ -40,6 +40,7 @@ async function run() {
 
     const usersCollection = client.db("contestHub").collection('users')
     const contestCollection = client.db("contestHub").collection('contest')
+    const contestSubmitCollection = client.db("contestHub").collection('contestSubmit')
 
 
     app.post('/users', async(req, res)=>{
@@ -100,6 +101,14 @@ async function run() {
         const result = await contestCollection.findOne(id)
         res.send(result)
       })
+
+
+      app.post('/contestSubmit', async(req, res)=>{
+        const data = req.body
+        const result = await contestSubmitCollection.insertOne(data)
+        res.send(result)
+        
+    })
 
 
 
