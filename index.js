@@ -111,6 +111,16 @@ async function run() {
     })
 
 
+    app.get('/myParticipate/:email', async (req, res) => {
+        const email = req.params.email
+        const query = {
+            participator: email
+        }
+        const result = await contestSubmitCollection.find(query).toArray()
+      res.send(result)
+      })
+
+
 
 
     // Send a ping to confirm a successful connection
