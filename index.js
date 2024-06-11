@@ -172,6 +172,12 @@ async function run() {
     })
 
 
+    app.delete('/deleteUser/:id', async(req, res)=>{
+        const result = await usersCollection.deleteOne({_id: new ObjectId(req.params.id)})
+        res.send(result)
+    })
+
+
 
 
     // Send a ping to confirm a successful connection
