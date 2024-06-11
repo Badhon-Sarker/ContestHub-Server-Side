@@ -154,6 +154,25 @@ async function run() {
 
 
 
+    app.put('/editRole/:id', async(req, res)=>{
+
+        const query = {_id: new ObjectId(req.params.id)}
+        
+
+        const data = {
+            $set: {
+                role: req.body.role,
+
+            },
+          };
+
+        const result = await usersCollection.updateOne(query, data);
+        
+        res.send(result)
+    })
+
+
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
