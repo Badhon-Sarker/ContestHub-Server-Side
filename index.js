@@ -122,6 +122,38 @@ async function run() {
 
 
 
+      app.delete('/deleteCreate/:id', async(req, res)=>{
+        const result = await contestCollection.deleteOne({_id: new ObjectId(req.params.id)})
+        res.send(result)
+    })
+
+    app.put('/editContest/:id', async(req, res)=>{
+
+        const query = {_id: new ObjectId(req.params.id)}
+
+        const data = {
+            $set: {
+
+                contestName: req.body.contestName,
+                contestType: req.body.contestType,
+                contestPrice: req.body.contestPrice,
+                date: req.body.date,
+                image: req.body.image,
+                prizeMoney: req.body.prizeMoney,
+                contestDescription: req.body.contestDescription,
+                taskInstruction: req.body.taskInstruction,
+                contestCreator: req.body.contestCreator
+   
+            },
+          };
+
+        const result = await contestCollection.updateOne(query, data);
+        
+        res.send(result)
+    })
+
+
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
