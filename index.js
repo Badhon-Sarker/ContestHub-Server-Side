@@ -253,6 +253,30 @@ app.put('/acceptContest/:id', async(req, res)=>{
 })
 
 
+app.get('/myWinnings/:email', async (req, res) => {
+  const email = req.params.email
+  const query = {
+      winnerEmail: email
+  }
+  const result = await contestWinnerCollection.find(query).toArray()
+res.send(result)
+})
+
+   
+// app.get('/myLost/:email', async (req, res) => {
+//   const email = req.params.email
+//   const query = {
+//       participatorEmail: email
+//   }
+//   const result = await contestLoserCollection.find(query).toArray()
+// res.send(result)
+// })
+
+
+
+
+
+
 
 
     // Send a ping to confirm a successful connection
