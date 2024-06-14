@@ -41,6 +41,8 @@ async function run() {
     const usersCollection = client.db("contestHub").collection('users')
     const contestCollection = client.db("contestHub").collection('contest')
     const contestSubmitCollection = client.db("contestHub").collection('contestSubmit')
+    const contestWinnerCollection = client.db("contestHub").collection('winners')
+    const contestLoserCollection = client.db("contestHub").collection('losers')
 
 
     app.post('/users', async(req, res)=>{
@@ -198,6 +200,57 @@ async function run() {
       const result = await contestSubmitCollection.find(query).toArray()
     res.send(result)
     })
+
+
+    app.post('/winners', async(req, res)=>{
+      const data = req.body
+      const result = await contestWinnerCollection.insertOne(data)
+      res.send(result)
+      
+  })
+
+
+  app.post('/losers', async(req, res)=>{
+    const data = req.body
+    const result = await contestLoserCollection.insertMany(data)
+    res.send(result)
+    
+})
+
+  app.get('/winnerDetails/:name', async (req, res) => {
+    const name = req.params.name
+    const query = {
+      contestName: name
+    }
+    const result = await contestWinnerCollection.find(query).toArray()
+  res.send(result)
+  })
+
+
+//   app.get('/contestGet', async(req, res)=>{
+
+//     const result = await contestCollection.find().toArray()
+//     res.send(result)
+
+// })
+
+
+app.put('/acceptContest/:id', async(req, res)=>{
+
+  const query = {_id: new ObjectId(req.params.id)}
+  
+
+  const data = {
+      $set: {
+          contestStatus: 'accepted'
+
+      },
+    };
+
+  const result = await contestCollection.updateOne(query, data);
+  
+  res.send(result)
+})
 
 
 
