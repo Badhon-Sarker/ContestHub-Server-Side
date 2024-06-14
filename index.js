@@ -114,7 +114,7 @@ async function run() {
     app.get('/myParticipate/:email', async (req, res) => {
         const email = req.params.email
         const query = {
-            participator: email
+            participatorEmail: email
         }
         const result = await contestSubmitCollection.find(query).toArray()
       res.send(result)
@@ -175,6 +175,28 @@ async function run() {
     app.delete('/deleteUser/:id', async(req, res)=>{
         const result = await usersCollection.deleteOne({_id: new ObjectId(req.params.id)})
         res.send(result)
+    })
+
+
+
+    app.get('/submittedContest/:email', async (req, res) => {
+      const email = req.params.email
+      const query = {
+          contestCreator: email
+      }
+      const result = await contestSubmitCollection.find(query).toArray()
+    res.send(result)
+    })
+
+
+
+    app.get('/submittedDetails/:name', async (req, res) => {
+      const name = req.params.name
+      const query = {
+          contestName: name
+      }
+      const result = await contestSubmitCollection.find(query).toArray()
+    res.send(result)
     })
 
 
