@@ -273,6 +273,29 @@ res.send(result)
 // })
 
 
+app.put('/editUser/:email', async(req, res)=>{
+
+  const email = req.params.email
+
+  const query = {
+    email
+}
+const options = { upsert: true };
+
+  const data = {
+      $set: {
+          name: req.body.name,
+          location: req.body.location
+
+      },
+    };
+
+  const result = await usersCollection.updateOne(query, data);
+  
+  res.send(result)
+})
+
+
 
 
 
