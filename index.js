@@ -317,6 +317,38 @@ app.post('/create-payment-intent', async(req, res)=>{
 
 
 
+
+app.put('/updateCount/:id', async(req, res)=>{
+
+  const query = {_id: new ObjectId(req.params.id)}
+  
+
+  const data = {
+      $inc:{
+        submitCount: 1
+
+      }
+    };
+
+  const result = await contestCollection.updateOne(query, data);
+  
+  res.send(result)
+})
+
+
+// app.get('/contest/:name', async (req, res) => {
+//   const contName = req.params.name
+// console.log('okkk', contName)
+//   const query = {
+//       contestName: contName
+//   }
+//   const result = await contestSubmitCollection.find(query).toArray()
+  
+// res.send(result)
+// })
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
