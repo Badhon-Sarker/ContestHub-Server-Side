@@ -286,12 +286,13 @@ const options = { upsert: true };
   const data = {
       $set: {
           name: req.body.name,
+          image: req.body.image,
           location: req.body.location
 
       },
     };
 
-  const result = await usersCollection.updateOne(query, data);
+  const result = await usersCollection.updateOne(query, data, options);
   
   res.send(result)
 })
@@ -336,16 +337,16 @@ app.put('/updateCount/:id', async(req, res)=>{
 })
 
 
-// app.get('/contest/:name', async (req, res) => {
-//   const contName = req.params.name
-// console.log('okkk', contName)
-//   const query = {
-//       contestName: contName
-//   }
-//   const result = await contestSubmitCollection.find(query).toArray()
+app.get('/contest/:email', async (req, res) => {
+  const email = req.params.email
+
+  const query = {
+    contestCreator: email
+  }
+  const result = await contestCollection.find(query).toArray()
   
-// res.send(result)
-// })
+res.send(result)
+})
 
 
 
