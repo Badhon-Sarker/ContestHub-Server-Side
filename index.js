@@ -44,6 +44,7 @@ async function run() {
     const contestSubmitCollection = client.db("contestHub").collection('contestSubmit')
     const contestWinnerCollection = client.db("contestHub").collection('winners')
     const contestLoserCollection = client.db("contestHub").collection('losers')
+    const userBlockCollection = client.db("contestHub").collection('block')
 
 
     app.post('/users', async(req, res)=>{
@@ -356,6 +357,38 @@ app.get('/allWinners', async(req, res)=>{
 
 })
 
+
+
+app.get('/ContestSearch', async(req, res)=>{
+  const search = req.query.search
+
+  let query = {
+      contestName: { $regex: search, $options: 'i'}
+  }
+  const result = await contestCollection.find(query).toArray()
+  res.send(result)
+})
+
+
+app.post('/block', async(req, res)=>{
+  const data = req.body
+  const result = await userBlockCollection.insertOne(data)
+  res.send(result)
+  
+})
+
+app.get('/getBlock', async(req, res)=>{
+
+  const result = await userBlockCollection.find().toArray()
+  res.send(result)
+
+})
+
+
+app.delete('/Unblock/:id', async(req, res)=>{
+  const result = await userBlockCollection.deleteOne({_id: new ObjectId(req.params.id)})
+  res.send(result)
+})
 
 
 
