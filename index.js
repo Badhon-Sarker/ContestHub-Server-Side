@@ -264,14 +264,14 @@ res.send(result)
 })
 
    
-// app.get('/myLost/:email', async (req, res) => {
-//   const email = req.params.email
-//   const query = {
-//       participatorEmail: email
-//   }
-//   const result = await contestLoserCollection.find(query).toArray()
-// res.send(result)
-// })
+app.get('/myLost/:email', async (req, res) => {
+  const email = req.params.email
+  const query = {
+      participatorEmail: email
+  }
+  const result = await contestLoserCollection.find(query).toArray()
+res.send(result)
+})
 
 
 app.put('/editUser/:email', async(req, res)=>{
@@ -347,6 +347,17 @@ app.get('/contest/:email', async (req, res) => {
   
 res.send(result)
 })
+
+
+app.get('/allWinners', async(req, res)=>{
+
+  const result = await contestWinnerCollection.find().toArray()
+  res.send(result)
+
+})
+
+
+
 
 
 
