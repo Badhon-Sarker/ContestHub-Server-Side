@@ -391,6 +391,25 @@ app.delete('/Unblock/:id', async(req, res)=>{
 })
 
 
+app.put('/editComment/:id', async(req, res)=>{
+ 
+   const query = {_id: new ObjectId(req.params.id)}
+
+const options = { upsert: true };
+
+  const data = {
+      $set: {
+          comment: req.body.comment,
+          
+      },
+    };
+
+  const result = await contestCollection.updateOne(query, data, options);
+  
+  res.send(result)
+})
+
+
 
 
 
