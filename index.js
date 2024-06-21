@@ -13,6 +13,7 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'http://localhost:5174',
+        'https://assignment-12-93c77.web.app'
         
       ],
       credentials: true,
